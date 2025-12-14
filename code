@@ -1,0 +1,62 @@
+const express = require('express')
+const mongoose = require('mongoose')
+const path = require('path')
+
+const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static("public"));
+
+const DB_URL = 'mongodb+srv://kaushalabhishek2001_db_user:GBklY4WS3BgIhzYj@app-data.ipzejox.mongodb.net/?appName=app-data';
+mongoose.connect(DB_URL)
+    .then(() => console.log('MongoDB Connected successfully'))
+    .catch(err => console.log('MongoDB connection failed', err))
+
+const dataSchema = new mongoose.Schema({
+    name: String,
+    password: String,
+    time: {
+        type: Date,
+        default: Date.now
+    }
+})
+
+const DataModel = mongoose.model('Test', dataSchema)
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'input.html'))
+})
+
+app.get('/ts', async (req, res) => {
+    try {
+        const data = new DataModel({ name: 'MongoDB Working' })
+        await data.save()
+        res.send('MongoDB Connected & DATA saved')
+    } catch (err) {
+        res.status(500).send("Error saving data")
+    }
+})
+
+app.post('/user', async (req, res) => {
+    try {
+        const { name, password } = req.body
+        const user = new DataModel({ name, password })
+        await user.save()
+        res.send('User saved successfully')
+    } catch (err) {
+        res.status(500).send('Error saving user')
+    }
+})
+
+app.get('/users', async (req, res) => {
+    try {
+        const users = await DataModel.find({}, "name password")
+        res.json(users)
+    } catch (err) {
+        res.status(500).send('Error fetching users')
+    }
+})
+
+app.listen(3000, () => {
+    console.log("Server started on http://localhost:3000")
+})
