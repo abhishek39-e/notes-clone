@@ -16,7 +16,7 @@ function App() {
     fetchNotes();
   }, []);
 
-  // add note
+  // add noteflgjlkfj
   const addNotes = async () => {
     if (!title || !content) return alert('Fill all fields');
 
