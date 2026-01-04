@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  }, ['']);
 
   // add note
   const addNotes = async () => {
