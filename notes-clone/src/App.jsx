@@ -7,7 +7,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [notes, setNotes] = useState([]);
-  //
+  /////
   const fetchNotes = async () => {
     const res = await fetch('/api/notes');
     const data = await res.json();
