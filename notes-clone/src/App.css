@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+.maindiv {
+  /* padding: 20px; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.p35 {
+  width: 20%;
+}
+input {
+  padding: 14px 22px;
+  border-radius: 25px;
+  outline: 0;
+  border: 0;
+}
+textarea {
+  padding: 9px 19px;
+}
+
+button {
+  width: 23% !important;
+}
